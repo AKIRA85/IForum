@@ -1,0 +1,40 @@
+#outerWrapper
+{
+	padding: 100px;
+}
+#innerWrapper
+{
+	border-spacing: 10px;
+	display: table;
+}
+#menuColumn
+{
+	display: table-cell;
+	border: 1px solid #094700;
+	padding: 10px;
+	vertical-align: top;
+	background-color: #DDFFBB;
+	min-width: 140px; 
+}
+
+#contentColumn
+{
+	display: table-cell;
+	border: 1px solid #094700;
+	padding: 10px;
+	vertical-align: top;
+	background-color: #FCFFCD;
+	min-width: 700px;
+}
+.input{
+	padding: 5px;
+}
+select{
+	width: 100px;
+}
+button.add {
+	width: 25%;
+}
+td{
+	vertical-align: top; 
+}
