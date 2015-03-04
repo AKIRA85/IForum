@@ -19,7 +19,12 @@
 ?>
 <html>
 <body>
-		<h6>Filters</h6>
+	<a href="home.php?get=my">&nbspMy Posts</a><br>
+	<a href="home.php?display=myrequests">&nbspMy Requests</a><br>
+		<?php
+		if(!isset($_GET['postid'])&&!isset($_GET['display'])) {
+			
+		echo '<h4>Filters</h4>
 		<div class="dropdown">
 		  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" 
 		  data-toggle="dropdown" aria-expanded="true">
@@ -27,16 +32,17 @@
 		    <span class="caret"></span>
 		  </button>
 		  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-		    <li role="presentation"><a role="menuitem" tabindex="-1" href="home.php">All</a></li>
-		    <?php
+		    <li role="presentation"><a role="menuitem" tabindex="-1" href="home.php">All</a></li>';
+		  
 					while($row=mysqli_fetch_assoc($fields)) {
 						echo '<li role="presentation"><a role="menuitem" tabindex="-1" href="home.php?field='.
 						$row['value'].'">'
 								.$row['value'].'</a></li>';
 					}
-		    ?>
+		echo '
 		  </ul>
-		</div>
+		</div>';
+		echo '
 		<div class="dropdown">
 		  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" 
 		  data-toggle="dropdown" aria-expanded="true">
@@ -44,17 +50,19 @@
 		    <span class="caret"></span>
 		  </button>
 		  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-		    <li role="presentation"><a role="menuitem" tabindex="-1" href="home.php">All</a></li>
-		    <?php
+		    <li role="presentation"><a role="menuitem" tabindex="-1" href="home.php">All</a></li>';
 					while($row=mysqli_fetch_assoc($skills)) {
 						echo '<li role="presentation"><a role="menuitem" tabindex="-1" href="home.php?skill='.
 						$row['value'].'">'
 								.$row['value'].'</a></li>';
 					}
-		    ?>
-		  </ul>
-		</div>
-		<script src="bootstrap/js/bootstrap.min.js"></script>
-  <script src="jquery.min.js"></script>
+			echo '
+				 </ul>
+			</div>			
+			';
+		}
+		?>
+		
+
 </body>
 </html>

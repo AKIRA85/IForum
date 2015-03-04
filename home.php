@@ -16,11 +16,10 @@
 	{
 		$allow=true;
 		$user = $_SESSION['username'];
-		echo "Logged in.";
 	}
 	else
 	{
-		echo "Not logged in.";
+		header("Location :index.php");
 		exit;
 	}
 	$menu="menu.php";
@@ -28,6 +27,7 @@
 		$content=$_GET["content"];
 	else
 		$content="display.php";
+	include('function.php');
 }
 ?>
 <html>
@@ -35,10 +35,21 @@
 	<title>Home</title>
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="css/layout.css" type="text/css" />
-	
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	<script src="bootstrap/js/jquery.min.js"></script>
+	<script src="jquery.timeago.js"></script>
+	<script src="bootstrap/js/bootstrap.js"></script>
+	<script src="javascript.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
+		<ul class="nav navbar-nav" >
+			<li><a href="home.php">
+			<?php
+				echo $user;			
+			?>			
+			</a></li> 
+      </ul>
 		<ul class="nav navbar-nav navbar-right" >
 			<li><a href="home.php">Home</a></li>         
          <li><a href="home.php?content=postNews.php">Post Idea</a></li>
@@ -73,7 +84,7 @@
     		</div><!-- end innerWrapper -->
     
   </div><!-- end outerWrapper -->
-  <script src="bootstrap/js/bootstrap.js"></script>
-  <script src="jquery.min.js"></script>
+  
 </body>
+
 </html>

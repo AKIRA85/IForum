@@ -94,9 +94,10 @@ $sql="SELECT * FROM users Where BINARY UserName='".$username."' AND Password='".
 $res=mysqli_query($con,$sql);
 
 if(mysqli_num_rows($res)==1){
+	$row = mysqli_fetch_assoc($res);
 	session_start();
+	$_SESSION['userID']=$row['UserId'];
 	$_SESSION['username']=$username;
-	echo "you have succesfully logged in";
 	
 	header("Location: home.php");
 
