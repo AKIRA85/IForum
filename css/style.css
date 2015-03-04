@@ -1,0 +1,8 @@
+.reply {
+	font-weight: bold;
+	color: green;
+}
+.error {
+	font-weight: bold;
+	color: red;
+}
