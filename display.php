@@ -7,93 +7,47 @@
 *
 *=====================================
 */
-{
-	$condition = "";
-	if(isset($_GET['value'])) {
-		$id = $_GET['value'];
-		$selectQuery = "SELECT * FROM posts WHERE PostId=$id";
-	}else {
-		if(isset($_GET['field'])) {
-			$condition = "WHERE fields LIKE '%".$_GET['field']."%'";		
-		}else if(isset($_GET['skill'])) {
-			$condition = "WHERE skills LIKE '%".$_GET['skill']."%'";		
-		}
-		$selectQuery ="SELECT PostId, Username, Title, time FROM posts "
-								.$condition." ORDER BY time ASC";			
-	}
-	$posts = mysqli_query($con, $selectQuery);
-}
 ?>
 <html>
-<head>
-
-	<!-- HTML Headers and Links to CSS -->
-
-</head>
 <body>
 
-	<h2 style="font-family: arial, helvetica, sans-serif;" >
-				Projects
-			</h2>
-	<?php 
-		if(isset($_GET['value'])){
-			$row = mysqli_fetch_assoc($posts);
-			echo '<table>
-				<tr>
-					<td>Subject :&nbsp</td>
-					<td>'.$row['Title'].'</td>
-				</tr>
-				<tr>
-					<td>Time : </td>
-					<td>'.$row['time'].'</td>
-				</tr>
-				<tr>
-					<td>Field : </td>
-					<td>';
-		$array = unserialize($row['fields']);
-		foreach($array as $field){
-			echo '<div style="width=100%">'.$field.'</div>';
-		}	
-		echo '</td>
-				</tr>		
-				<tr>
-					<td>Skills :</td>
-					<td>';
-		$array = unserialize($row['skills']);
-		foreach($array as $field){
-			echo '<div style="width=100%">'.$field.'</div>';
-		}		
-		echo '</td>
-				</tr>
-				<tr>
-					<td colspan="2">Team members required</td>				
-				</tr>
-				<tr>
-					<td>Min : '.$row['min'].'</td>						
-					<td>Max : '.$row['max'].'</td>						
-					</tr>
-				</table>
-				<hr>';
-			echo nl2br($row['Body']);		
-			exit;
+	<?php
+	/*	if(isset($_GET['value'])){
+			// detailed view of a post
+			if(isset($_GET['get'])) {
+				// Displays requests to Post owner
+				echo '<h4>Requests</h4>';
+				showRequests($_GET['value'],"");
+			}
+			showPostDetails($_GET['value']);
+		}else if(isset($_GET['display']) && $_GET['display']=="myrequests"){
+			echo '<h3>My Requests</h3>';
+			showRequests("",$user);
 		}
-		echo '<table border="1">
-				<tr>
-					<th>Posted By</th>
-					<th>Subject</th>
-					<th>Time</th>
-				</tr>';
-		while($row = mysqli_fetch_assoc($posts)) {
-			echo '<tr>
-					<td>'.$row['Username'].'</td>
-					<td>
-					<a href="home.php?content=display.php&value='.$row['PostId'].'">'.$row['Title'].'</a>
-					</td>
-					<td>'.$row['time'].'</td>
-				</tr>';
+		else {
+			showPosts($_GET);
+		}*/
+		if(isset($_GET['postid']) && isset($_GET['get'])) {
+			echo '<h4>Requests</h4>';
+			showRequests($_GET['postid'],"");
+			showPostDetails($_GET['postid']);
+		}else if(isset($_GET['postid']) && !isset($_GET['get'])) {
+			showPostDetails($_GET['postid']);
+		}else if(isset($_GET['display']) && $_GET['display']=="myrequests"){
+			echo '<h3>My Requests</h3>';
+			showRequests("",$user);
+		}else if(isset($_GET['get'])) {
+			echo '<h3>My Projects</h3>';
+			showPosts($_GET);
+		}else {
+			echo '<h3>Projects</h3>';
+			showPosts($_GET);
 		}
-		echo '</table>';
-	?>
-
+	?>	
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$(".timeago").timeago();
+		});
+	</script>
 </body>
 </html>
