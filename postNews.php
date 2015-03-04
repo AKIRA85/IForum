@@ -7,16 +7,19 @@
 *=====================================
 */
 
-	include('function.php');
 	if(isset($_POST["save"])) {
 		{  //   collect the data with $_POST
 			$subject = $_POST["subject"];	
 			$text = $_POST["text"];	
 			$field = serialize($_POST["field"]);
 			$min = $_POST["min"];
+			$period = $_POST["duration"][0];
+			if($_POST["num"]==1) {
+				$period = substr($period, 0, -1);
+			}
+			$duration = $_POST["num"]." ".$period;
 			$max = $_POST["max"];
-			$skill = serialize($_POST["skill"]);
-				
+			$skill = serialize($_POST["skill"]);	
 		}
 			
 		{  //   SQL:     $tCompany_SQLinsert	
@@ -28,7 +31,8 @@
 			$SQLinsert .=  "min, ";
 			$SQLinsert .=  "max, ";
 			$SQLinsert .=  "skills, ";
-			$SQLinsert .=  "field ";
+			$SQLinsert .=  "duration, ";
+			$SQLinsert .=  "fields ";
 			$SQLinsert .=  ") ";
 			$SQLinsert .=  "VALUES (";
 			$SQLinsert .=  "'".$user."', ";
@@ -37,6 +41,7 @@
 			$SQLinsert .=  "'".$min."', ";
 			$SQLinsert .=  "'".$max."', ";
 			$SQLinsert .=  "'".$skill."', ";
+			$SQLinsert .=  "'".$duration."', ";
 			$SQLinsert .=  "'".$field."' ";
 			$SQLinsert .=  ") ";
 		}
@@ -66,7 +71,7 @@
 
 	<br /> 
 	<form name="postCompany" action="home.php?content=postNews.php" method="post">
-				<table border="1">
+				<table>
 					<tr>
 						<td>Subject :</td>
 						<td class="input" colspan="3"><input type="text" name="subject" size="60"/></td>
@@ -75,7 +80,7 @@
 					<td>Field :</td>
 					<td style="width:300px">
 					<?php
-						dropDown("field", $con);
+						dropDown("field");
 					?>
 					</tr>
 					<tr>
@@ -88,8 +93,9 @@
 					<td>Skill :</td>
 					<td style="width:300px">
 					<?php
-						dropDown("skill", $con);		
+						dropDown("skill");		
 					?>
+					</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -106,6 +112,15 @@
 					<td><input type="number" name="min" min="2" max="100" value="2"></td>						
 					<td>Max :</td>
 					<td><input type="number" name="max" min="2" max="100" value="2"></td>						
+					</tr>
+					<tr>
+					<td>Durartion</td>
+					<td>
+						<input name="num" type="number" min="1" value="1">
+						<?php
+						dropDown("duration");		
+						?>	
+					</td>					
 					</tr>
 					<tr>
 						<td valign="top" colspan="1">Body :</td>
